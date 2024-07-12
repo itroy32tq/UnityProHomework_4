@@ -1,3 +1,4 @@
+using Assets.Code.HomeworksCode;
 using Zenject;
 
 namespace Code
@@ -8,6 +9,7 @@ namespace Code
         {
             new CurrencyInstaller(Container);
             new ProductInstaller(Container);
+            new HeroInstaller(Container);
         }
     }
 }

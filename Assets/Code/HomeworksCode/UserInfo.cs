@@ -22,22 +22,22 @@ namespace Lessons.Architecture.PM
         [Button]
         public void ChangeName(string name)
         {
-            this.Name = name;
-            this.OnNameChanged?.Invoke(name);
+            Name = name;
+            OnNameChanged?.Invoke(name);
         }
 
         [Button]
         public void ChangeDescription(string description)
         {
-            this.Description = description;
-            this.OnDescriptionChanged?.Invoke(description);
+            Description = description;
+            OnDescriptionChanged?.Invoke(description);
         }
 
         [Button]
         public void ChangeIcon(Sprite icon)
         {
-            this.Icon = icon;
-            this.OnIconChanged?.Invoke(icon);
+            Icon = icon;
+            OnIconChanged?.Invoke(icon);
         }
     }
 }

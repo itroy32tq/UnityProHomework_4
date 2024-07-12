@@ -22,7 +22,7 @@ namespace Code
 
         [Space]
         [SerializeField]
-        private BuyButtonState _state;
+        private ButtonState _state;
 
         private Image _priceIcon;
 
@@ -50,21 +50,21 @@ namespace Code
 
         public void SetAvailable(bool isAvailable)
         {
-            var state = isAvailable ? BuyButtonState.Available : BuyButtonState.Locked;
+            var state = isAvailable ? ButtonState.Available : ButtonState.Locked;
             SetState(state);
         }
 
-        public void SetState(BuyButtonState state)
+        public void SetState(ButtonState state)
         {
             _state = state;
 
             switch (state)
             {
-                case BuyButtonState.Available:
+                case ButtonState.Available:
                     Button.interactable = true;
                     _buttonBackground.sprite = _availableButtonSprite;
                     break;
-                case BuyButtonState.Locked:
+                case ButtonState.Locked:
                     Button.interactable = false;
                     _buttonBackground.sprite = _lockedButtonSprite;
                     break;

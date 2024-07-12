@@ -3,7 +3,6 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Code
 {
@@ -22,6 +21,7 @@ namespace Code
         private BuyButton _buyButton;
         
         [SerializeField] private Button _closeButton;
+
         private IProductPresenter _productPresenter;
         private readonly CompositeDisposable _disposable = new ();
 
@@ -48,9 +48,9 @@ namespace Code
 
         private void UpdateButtonState()
         {
-            BuyButtonState buttonState = _productPresenter.CanBuy.Value
-                ? BuyButtonState.Available
-                : BuyButtonState.Locked;
+            ButtonState buttonState = _productPresenter.CanBuy.Value
+                ? ButtonState.Available
+                : ButtonState.Locked;
             _buyButton.SetState(buttonState);
         }
 

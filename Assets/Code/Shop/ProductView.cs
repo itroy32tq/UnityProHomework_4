@@ -32,9 +32,9 @@ namespace Code
 
         private void UpdateButtonState()
         {
-            BuyButtonState buttonState = _productPresenter.CanBuy.Value
-                ? BuyButtonState.Available
-                : BuyButtonState.Locked;
+            ButtonState buttonState = _productPresenter.CanBuy.Value
+                ? ButtonState.Available
+                : ButtonState.Locked;
             _button.SetState(buttonState);
         }
     }

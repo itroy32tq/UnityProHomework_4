@@ -17,31 +17,31 @@ namespace Lessons.Architecture.PM
         [ShowInInspector, ReadOnly]
         public int RequiredExperience
         {
-            get { return 100 * (this.CurrentLevel + 1); }
+            get { return 100 * (CurrentLevel + 1); }
         }
 
         [Button]
         public void AddExperience(int range)
         {
-            var xp = Math.Min(this.CurrentExperience + range, this.RequiredExperience);
-            this.CurrentExperience = xp;
-            this.OnExperienceChanged?.Invoke(xp);
+            int xp = Math.Min(CurrentExperience + range, RequiredExperience);
+            CurrentExperience = xp;
+            OnExperienceChanged?.Invoke(xp);
         }
 
         [Button]
         public void LevelUp()
         {
-            if (this.CanLevelUp())
+            if (CanLevelUp())
             {
-                this.CurrentExperience = 0;
-                this.CurrentLevel++;
-                this.OnLevelUp?.Invoke();
+                CurrentExperience = 0;
+                CurrentLevel++;
+                OnLevelUp?.Invoke();
             }
         }
 
         public bool CanLevelUp()
         {
-            return this.CurrentExperience == this.RequiredExperience;
+            return CurrentExperience == RequiredExperience;
         }
     }
 }

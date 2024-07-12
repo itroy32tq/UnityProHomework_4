@@ -280,6 +280,11 @@ namespace UniRx
         {
             return false;
         }
+
+        public void Subscribe(object onExperienceChanged)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>

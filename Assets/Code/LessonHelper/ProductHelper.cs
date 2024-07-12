@@ -20,7 +20,8 @@ namespace Code
         public void ShowPopup()
         {
             IProductPresenter productPresenter = _productPresenterFactory.Create(_productInfo);
-            _productPopup.Show(productPresenter);
+            ProductPopup popup = Instantiate(_productPopup);
+            popup.Show(productPresenter);
         }
 
         public void ShowShopPopup()
