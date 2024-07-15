@@ -35,10 +35,10 @@ namespace Lessons.Architecture.PM
         {
             foreach (CharacterStat stat in _stats)
             {
-                if (stat.Name == name)
+                /*if (stat.Name == name)
                 {
                     return stat;
-                }
+                }*/
             }
 
             throw new Exception($"Stat {name} is not found!");

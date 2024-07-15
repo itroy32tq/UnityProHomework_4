@@ -17,6 +17,7 @@ namespace Lessons.Architecture.PM
 
         [SerializeField] private LevelUpButton _levelUpButton;
         [SerializeField] private ExperienceSlider _experienceSlider;
+        [SerializeField] private StatsPanelGroup _statsPanelGroup;
 
         [SerializeField] private Button _closeButton;
 
@@ -37,6 +38,7 @@ namespace Lessons.Architecture.PM
             _icon.sprite = _heroPresenter.Icon;
 
             _experienceSlider.SetAndSubscribeValue(_heroPresenter);
+            _statsPanelGroup.SetAndSubscribeValue(_heroPresenter);
 
             _heroPresenter.CurrentLevel.Subscribe(OnLevelChanged);
             

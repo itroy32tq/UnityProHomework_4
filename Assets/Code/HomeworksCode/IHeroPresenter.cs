@@ -1,4 +1,5 @@
 ﻿using Code;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -11,8 +12,9 @@ namespace Lessons.Architecture.PM
         Sprite Icon { get; }
         IReadOnlyReactiveProperty<int> CurrentLevel { get; }
         IReadOnlyReactiveProperty<int> CurrentExperience { get; }
-        int RequiredExperience { get; }
+        IReadOnlyReactiveCollection<CharacterStat> Stats { get; }
         IReadOnlyReactiveProperty<bool> CanLevelUp { get; }
+        int RequiredExperience { get; }
         ReactiveCommand CanLevelUpCommand { get; }
         void LevelUp();
         void AddExperience(int range);

@@ -714,6 +714,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1061602356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1061602357}
+  m_Layer: 5
+  m_Name: Heroes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1061602357
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061602356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1726938291}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1221141740
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +858,6 @@ GameObject:
   - component: {fileID: 1726938290}
   - component: {fileID: 1726938289}
   - component: {fileID: 1726938288}
-  - component: {fileID: 1726938292}
   - component: {fileID: 1726938293}
   m_Layer: 5
   m_Name: Canvas
@@ -906,6 +941,7 @@ RectTransform:
   m_Children:
   - {fileID: 1221141741}
   - {fileID: 346419526}
+  - {fileID: 1061602357}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -914,19 +950,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1726938292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726938287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c0252bcd3a41aeaf172e7d44a72a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _current: 10
 --- !u!114 &1726938293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,13 +959,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1726938287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20720181970d4b3ab992b50fdcc6042f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3027448637c0d65478cb3a8ee4a3a06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _productInfo: {fileID: 11400000, guid: 7721c75f2c5454847b8dca51afad5d96, type: 2}
-  _productPopup: {fileID: 2091487599}
-  _shopPopup: {fileID: 6814740114357892575}
-  _productCatalog: {fileID: 11400000, guid: 4ae90141bfb352b4eb699388e34c261f, type: 2}
+  _heroInfo: {fileID: 11400000, guid: 4e0d175e709da3b408dbbb6a76183e9b, type: 2}
+  _heroPopup: {fileID: 3116552081152254624, guid: 56a5bbdb57c14f2408a592f371ef9cff, type: 3}
+  _heroesPool: {fileID: 11400000, guid: 9f1a031212e377b418d0fb260b26c175, type: 2}
+  _container: {fileID: 1061602357}
+  _range: 200
+  _shopPopup: {fileID: 0}
+  _characterStat:
+    <Name>k__BackingField: Dexterity
+    <Value>k__BackingField: 10
+    <Label>k__BackingField: {fileID: 0}
+    <ValueLabel>k__BackingField: {fileID: 0}
+    <Point>k__BackingField: {fileID: 0}
+  _characterStatName: 
+  _value: 0
 --- !u!1 &1787449566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,17 +1267,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7648346340074729550, guid: 0bbb700941e6dee4a90fd3f6270d2679, type: 3}
   m_PrefabInstance: {fileID: 2091487597}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2091487599 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1859957442203636936, guid: 0bbb700941e6dee4a90fd3f6270d2679, type: 3}
-  m_PrefabInstance: {fileID: 2091487597}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dc3e02a8c0d430c915733e97d9f777c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2099637021 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5577689466070816078, guid: e239843313816374ab29a63af895b4f5, type: 3}
@@ -1387,14 +1409,3 @@ MonoBehaviour:
   _container: {fileID: 0}
   _viewPrefab: {fileID: 0}
   _hideButton: {fileID: 0}
---- !u!114 &6814740114357892575 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5214789657324656663, guid: 31ca90a4537a2884faba40f72bfde543, type: 3}
-  m_PrefabInstance: {fileID: 6814740114357892572}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034142291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 691a9507ea3e44308ad195b0b3edd448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

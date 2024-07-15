@@ -1,27 +1,32 @@
 ﻿using Lessons.Architecture.PM;
-using System;
+using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 
 namespace Assets.Code.HomeworksCode
 {
     public sealed class ExperienceSlider : MonoBehaviour
     {
         [SerializeField] private Slider _experienceSlider;
-        private IHeroPresenter _heroPresenter;
+        [SerializeField] private TMP_Text _experienceInfo;
 
+        private IHeroPresenter _heroPresenter;
+        private readonly CompositeDisposable _disposable = new();
         public void SetAndSubscribeValue(IHeroPresenter heroPresenter)
         {
             _heroPresenter = heroPresenter;
 
-            _experienceSlider.value = (float)_heroPresenter.CurrentExperience.Value / _heroPresenter.RequiredExperience;
-            _heroPresenter.CurrentExperience.Subscribe(OnExperienceChanged);
+            //_experienceSlider.value = (float)_heroPresenter.CurrentExperience.Value / _heroPresenter.RequiredExperience;
+            //_experienceInfo.text = $"XP: {_heroPresenter.CurrentExperience.Value}/{_heroPresenter.RequiredExperience}";
+
+            _heroPresenter.CurrentExperience.Subscribe(OnExperienceChanged).AddTo(_disposable);
         }
 
         private void OnExperienceChanged(int value)
         {
             _experienceSlider.value = (float)_heroPresenter.CurrentExperience.Value / _heroPresenter.RequiredExperience;
+            _experienceInfo.text = $"XP: {_heroPresenter.CurrentExperience.Value}/{_heroPresenter.RequiredExperience}";
         }
     }
 }

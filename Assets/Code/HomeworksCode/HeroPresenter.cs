@@ -1,5 +1,6 @@
 ﻿using Lessons.Architecture.PM;
 using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -12,12 +13,13 @@ namespace Assets.Code.HomeworksCode
         public string Description { get; }
         public Sprite Icon { get; }
         public int RequiredExperience => 100 * (CurrentLevel.Value + 1);
-        public bool CanMakeLevelUp => _currentExperience.Value == RequiredExperience;
 
         private readonly ReactiveProperty<int> _currentLevel;
         private readonly ReactiveProperty<int> _currentExperience;
-        private readonly ReactiveProperty<bool> _canLevelUp; 
+        private readonly ReactiveProperty<bool> _canLevelUp;
+        private readonly ReactiveCollection<CharacterStat> _stats;
 
+        public IReadOnlyReactiveCollection<CharacterStat> Stats => _stats;
         public IReadOnlyReactiveProperty<bool> CanLevelUp => _canLevelUp;
         public IReadOnlyReactiveProperty<int> CurrentLevel => _currentLevel;
         public IReadOnlyReactiveProperty<int> CurrentExperience => _currentExperience;
@@ -26,23 +28,24 @@ namespace Assets.Code.HomeworksCode
 
         public ReactiveCommand CanLevelUpCommand { get; }
 
+        
+
         public HeroPresenter(HeroInfo heroInfo)
         {
             _heroInfo = heroInfo;
 
-            Name = heroInfo.Name;
-            Description = heroInfo.Description;
-            Icon = heroInfo.Icon;
+            Name = _heroInfo.Name;
+            Description = _heroInfo.Description;
+            Icon = _heroInfo.Icon;
 
-            _currentLevel = new ReactiveProperty<int> (heroInfo.CurrentLevel);
-            _currentExperience = new ReactiveProperty<int> (heroInfo.CurrentExperience);
-            _canLevelUp = new ReactiveProperty<bool>(CanMakeLevelUp);
+            _currentLevel = new ReactiveProperty<int> (_heroInfo.CurrentLevel);
+            _currentExperience = new ReactiveProperty<int> (_heroInfo.CurrentExperience);
+            _canLevelUp = new ReactiveProperty<bool>(_currentExperience.Value == RequiredExperience);
+            _stats = new ReactiveCollection<CharacterStat> (_heroInfo.Stats);
 
-            CanLevelUpCommand = new ReactiveCommand(CanLevelUp);
+            CanLevelUpCommand = new ReactiveCommand(_canLevelUp);
             CanLevelUpCommand.Subscribe(OnLevelUpCommand).AddTo(_disposable);
         }
-
-        
 
         private void OnLevelUpCommand(Unit obj)
         {
@@ -53,6 +56,7 @@ namespace Assets.Code.HomeworksCode
         {
             int xp = Math.Min(CurrentExperience.Value + range, RequiredExperience);
             _currentExperience.Value = xp;
+            _canLevelUp.Value = _currentExperience.Value == RequiredExperience;
         }
 
         public void LevelUp()
@@ -63,12 +67,29 @@ namespace Assets.Code.HomeworksCode
 
         public void AddStat(CharacterStat stat)
         {
-            throw new NotImplementedException();
+            CharacterStat target = GetStat(stat.Name);
+
+            if (target == null)
+            { 
+                _stats.Add(stat);
+            }
+            else
+            {
+                //todo
+            }
         }
 
         public CharacterStat GetStat(string name)
         {
-            throw new NotImplementedException();
+            foreach (CharacterStat stat in _stats)
+            {
+                if (stat.Name == name)
+                {
+                    return stat;
+                }
+            }
+
+            return null;
         }
 
         public CharacterStat[] GetStats()
@@ -78,7 +99,12 @@ namespace Assets.Code.HomeworksCode
 
         public void RemoveStat(CharacterStat stat)
         {
-            throw new NotImplementedException();
+            CharacterStat target = GetStat(stat.Name);
+
+            if (target != null)
+            {
+                _stats.Remove(target);
+            }
         }
     }
 }

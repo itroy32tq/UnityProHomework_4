@@ -1,24 +1,22 @@
-using Sirenix.OdinInspector;
 using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Lessons.Architecture.PM
 {
     [Serializable]
     public sealed class CharacterStat
     {
-        public event Action<int> OnValueChanged; 
+        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] public int Value { get; private set; }
+        [field: SerializeField] public TMP_Text Label { get; private set; }
+        [field: SerializeField] public TMP_Text ValueLabel { get; private set; }
+        [field: SerializeField] public Image Point { get; private set; }
 
-        [ShowInInspector, ReadOnly]
-        public string Name { get; private set; }
-
-        [ShowInInspector, ReadOnly]
-        public int Value { get; private set; }
-
-        [Button]
-        public void ChangeValue(int value)
-        {
+        public void SetValue(int value)
+        { 
             Value = value;
-            OnValueChanged?.Invoke(value);
         }
     }
 }

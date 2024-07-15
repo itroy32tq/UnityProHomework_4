@@ -11,11 +11,11 @@ namespace Assets.Code.HeroPopupManager
 
         public HeroPopupPresenter(HeroesPool heroesPool, HeroPresenterFactory factory)
         {
-            HeroInfo[] products = heroesPool.Heroes;
+            HeroInfo[] heroes = heroesPool.Heroes;
 
-            for (int i = 0, count = products.Length; i < count; i++)
+            for (int i = 0, count = heroes.Length; i < count; i++)
             {
-                HeroInfo hero = products[i];
+                HeroInfo hero = heroes[i];
                 IHeroPresenter presenter = factory.Create(hero);
                 _presenters.Add(presenter);
             }
