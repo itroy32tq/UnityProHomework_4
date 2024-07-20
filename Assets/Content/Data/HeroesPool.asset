@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4314f7d7f4d73a945a5695ae1df283ea, type: 3}
   m_Name: HeroesPool
   m_EditorClassIdentifier: 
-  Products:
-  - {fileID: 0}
+  Heroes:
+  - {fileID: 11400000, guid: 4e0d175e709da3b408dbbb6a76183e9b, type: 2}
+  - {fileID: 11400000, guid: ed2a4bea2ad1c404baa951d6e72e1d45, type: 2}
