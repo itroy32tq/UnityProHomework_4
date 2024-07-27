@@ -52,14 +52,6 @@ namespace Lessons.Architecture.PM
 
         }
 
-        private void UpdateButtonState(bool canUpdate)
-        {
-            ButtonState buttonState = canUpdate
-                ? ButtonState.Available
-                : ButtonState.Locked;
-            _levelUpButton.SetState(buttonState);
-        }
-
         public void Hide()
         {
             gameObject.SetActive(false);
@@ -75,18 +67,16 @@ namespace Lessons.Architecture.PM
             _description.text = heroPresenter.Description;
             _icon.sprite = heroPresenter.Icon;
 
-            _experienceSlider.SetAndSubscribeValue(heroPresenter);
-            _statsPanelGroup.SetAndSubscribeValue(heroPresenter);
+            _experienceSlider.SetAndSubscribeValue(heroPresenter.ExperiencePresenter);
+            _statsPanelGroup.SetAndSubscribeValue(heroPresenter.StatsPresenter);
+            _levelUpButton.SetAndSubscribeValue(heroPresenter.ExperiencePresenter);
 
-            heroPresenter.CurrentLevel.Subscribe(OnLevelChanged);
-
-            heroPresenter.CanLevelUpCommand.BindTo(_levelUpButton.Button).AddTo(_disposable);
-            heroPresenter.CanLevelUp.Subscribe(UpdateButtonState).AddTo(_disposable);
-            UpdateButtonState(heroPresenter.CanLevelUp.Value);
+            heroPresenter.ExperiencePresenter.CurrentLevel.Subscribe(OnLevelChanged);
 
             _closeButton.onClick.AddListener(Hide);
 
             gameObject.SetActive(false);
         }
-    }
+    }   
 }
+

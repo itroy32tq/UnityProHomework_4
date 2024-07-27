@@ -1,4 +1,5 @@
-﻿using Lessons.Architecture.PM;
+﻿using Assets.Code.HeroesPopupManager;
+using Lessons.Architecture.PM;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -8,14 +9,14 @@ namespace Assets.Code.HomeworksCode
 {
     public sealed class StatsPanelGroup : MonoBehaviour
     {
-        [SerializeField] private List<CharacterStat> _stats;
+        [SerializeField] private List<StatPoint> _stats;
 
-        private IHeroPresenter _heroPresenter;
+        private IStatsPresenter _heroPresenter;
         private readonly CompositeDisposable _disposable = new();
 
-        internal void SetAndSubscribeValue(IHeroPresenter heroPresenter)
+        internal void SetAndSubscribeValue(IStatsPresenter statsPresenter)
         {
-            _heroPresenter = heroPresenter;
+            _heroPresenter = statsPresenter;
 
             _heroPresenter.Stats.ObserveAdd().Subscribe(OnStatAdd).AddTo(_disposable);
             _heroPresenter.Stats.ObserveRemove().Subscribe(OnStatRemove).AddTo(_disposable);
@@ -28,7 +29,8 @@ namespace Assets.Code.HomeworksCode
         {
             for (int i = 0; i < _stats.Count; i++)
             {
-                CharacterStat item = _stats[i];
+                StatPoint item = _stats[i];
+
                 if (item.Name == stat.Name)
                 {
                     item.ValueLabel.text = stat.Value.ToString();
@@ -41,12 +43,10 @@ namespace Assets.Code.HomeworksCode
             CharacterStat removeItem = removeEvent.Value;
             for (int i = 0; i < _stats.Count; i++)
             {
-                CharacterStat item = _stats[i];
+                StatPoint item = _stats[i];
                 if (item.Name == removeItem.Name)
                 {
-                    item.Label.gameObject.SetActive(false);
-                    item.Point.gameObject.SetActive(false);
-                    item.ValueLabel.gameObject.SetActive(false);
+                    item.gameObject.SetActive(false);
                     removeItem.OnValueChanged -= OnStatValueChanged;
                 }
             }
@@ -55,14 +55,13 @@ namespace Assets.Code.HomeworksCode
         private void OnStatAdd(CollectionAddEvent<CharacterStat> addEvent)
         {
             CharacterStat addItem = addEvent.Value;
+
             for (int i = 0; i < _stats.Count; i++)
             {
-                CharacterStat item = _stats[i];
+                StatPoint item = _stats[i];
                 if (item.Name == addItem.Name)
                 {
-                    item.Label.gameObject.SetActive(true);
-                    item.Point.gameObject.SetActive(true);
-                    item.ValueLabel.gameObject.SetActive(true);
+                    item.gameObject.SetActive(true);
                     item.ValueLabel.text = addItem.Value.ToString();
 
                     addItem.OnValueChanged += OnStatValueChanged;
@@ -73,14 +72,13 @@ namespace Assets.Code.HomeworksCode
 
         private void SetStatus(IReadOnlyReactiveCollection<CharacterStat> list)
         {
-            List<CharacterStat> activeStats = list.Join(_stats,
+            List<StatPoint> activeStats = list.Join(_stats,
                 x => x.Name,
                 y => y.Name,
                 (x, y) =>
                 {
-                    y.Label.gameObject.SetActive(true);
-                    y.Point.gameObject.SetActive(true);
-                    y.ValueLabel.gameObject.SetActive(true);
+                    y.gameObject.SetActive(true);
+
                     y.ValueLabel.text = x.Value.ToString();
 
                     x.OnValueChanged += OnStatValueChanged;

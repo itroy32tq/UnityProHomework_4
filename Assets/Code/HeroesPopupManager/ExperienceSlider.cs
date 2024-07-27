@@ -11,9 +11,10 @@ namespace Assets.Code.HomeworksCode
         [SerializeField] private Slider _experienceSlider;
         [SerializeField] private TMP_Text _experienceInfo;
 
-        private IHeroPresenter _heroPresenter;
+        private IExperiencePresenter _heroPresenter;
         private readonly CompositeDisposable _disposable = new();
-        public void SetAndSubscribeValue(IHeroPresenter heroPresenter)
+
+        public void SetAndSubscribeValue(IExperiencePresenter heroPresenter)
         {
             _heroPresenter = heroPresenter;
 

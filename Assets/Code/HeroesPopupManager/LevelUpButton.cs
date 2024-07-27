@@ -1,5 +1,7 @@
 ﻿using Code;
+using Lessons.Architecture.PM;
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +18,25 @@ namespace Assets.Code.HomeworksCode
 
         [SerializeField] private Sprite _lockedButtonSprite;
 
+        private readonly CompositeDisposable _disposable = new();
         public Button Button => _button;
 
-   
+        public void SetAndSubscribeValue(IExperiencePresenter experiencePresenter)
+        {
+
+            experiencePresenter.CanLevelUpCommand.BindTo(Button).AddTo(_disposable);
+            experiencePresenter.CanLevelUp.Subscribe(UpdateButtonState).AddTo(_disposable);
+            UpdateButtonState(experiencePresenter.CanLevelUp.Value);
+        }
+
+        private void UpdateButtonState(bool canUpdate)
+        {
+            ButtonState buttonState = canUpdate
+                ? ButtonState.Available
+                : ButtonState.Locked;
+            SetState(buttonState);
+        }
+
         public void SetState(ButtonState state)
         {
 
