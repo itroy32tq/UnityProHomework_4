@@ -21,6 +21,7 @@ namespace Code
 
         private HeroPresenterFactory _factory;
         private IHeroPresenter _currentPresenter;
+        private HeroPopup _currentPopup;
 
         [SerializeField] private CharacterStat _characterStat;
         [SerializeField] private string _characterStatName;
@@ -36,14 +37,46 @@ namespace Code
 
         public void ShowPopup()
         {
+            if (_heroInfo == null)
+            {
+                Debug.Log("отсутствуют данные для формирования презентера");
+                return;
+            }
+
             _currentPresenter = _factory.Create(_heroInfo);
-            var popup = Instantiate(_heroPrefab, _container);
-            popup.Show(_currentPresenter);
+
+            if (_currentPopup == null)
+            {
+                _currentPopup = Instantiate(_heroPrefab, _container);
+
+            }
+            else
+            {
+                Destroy(_currentPopup.gameObject);
+                _currentPopup = Instantiate(_heroPrefab, _container);
+            }
+
+            _currentPopup.Show(_currentPresenter);
         }
 
         public void CreateHeroesPopup()
         {
-            _heroesPopupManager = Instantiate(_managerPrefab, _container);
+            if (_currentPopup != null)
+            {
+                Destroy(_currentPopup.gameObject);
+            }
+
+            if (_heroesPopupManager == null)
+            {
+                _heroesPopupManager = Instantiate(_managerPrefab, _container);
+
+            }
+            else 
+            {
+                Destroy(_heroesPopupManager.gameObject);
+                _heroesPopupManager = Instantiate(_managerPrefab, _container);
+            }
+
             _heroesPopupManager.Container = _container;
             _heroesPopupManager.Create(new HeroesPopupPresenter(_heroesPool, _factory));
         }
